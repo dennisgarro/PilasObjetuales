@@ -19,7 +19,8 @@ public class metodos {
 
         }
         MostrarPila(pila);
-        pila = Eliminar(pila);
+        int opt = Integer.parseInt(JOptionPane.showInputDialog("ingrese 1: consultar, 2: eliminar ,3 modificar "));
+        pila = AccionesRegistro(pila, opt);
         MostrarPila(pila);
     }
 
@@ -32,16 +33,29 @@ public class metodos {
         }
     }
 
-    public Stack<Vehiculo> Eliminar(Stack<Vehiculo> pila) {
-
-        String dato = JOptionPane.showInputDialog("Ingrese el registro que desea eliminar");
-        for (Vehiculo o : pila) {
-            if (o.getMarca().equalsIgnoreCase(dato)) {
-                pila.pop();
-
-            }
-
+    public Stack<Vehiculo> AccionesRegistro(Stack<Vehiculo> pila, int opt) {
+        String dato = "";
+        if (opt == 1) {
+            dato = JOptionPane.showInputDialog("Ingrese el registro a consultar");
+        } else if (opt == 2) {
+            dato = JOptionPane.showInputDialog("Ingrese el registro al que desea eliminar");
+        } else {
+            dato = JOptionPane.showInputDialog("Ingrese el registro al que desea Modificar");
         }
+        for (Vehiculo vehiculo : pila) {
+            if (vehiculo.getMarca().equalsIgnoreCase(dato)) {
+                if (opt == 1) {
+                    System.out.println(
+                            "el registro se encuentras y es: " + vehiculo.getMarca() + " " + vehiculo.getPrecio());
+                } else if (opt == 2) {
+                    pila.remove(vehiculo);
+                } else {
+                    vehiculo.setMarca(JOptionPane.showInputDialog("Ingrese La marca"));
+
+                }
+            }
+        }
+
         return pila;
 
     }
